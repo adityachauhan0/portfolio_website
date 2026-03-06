@@ -1,15 +1,19 @@
-export const projectSlugs = [
-  "go-torrent",
-  "hyle",
-  "rust_os",
+export const featuredProjectSlugs = [
   "wait-whaa-win",
+  "gamer-cat",
+  "slap-app",
+  "research-waifu",
+  "are-you-okay",
 ] as const;
 
-export type ProjectSlug = (typeof projectSlugs)[number];
+export type FeaturedProjectSlug = (typeof featuredProjectSlugs)[number];
 
-export type Project = {
-  slug: ProjectSlug;
+export type FeaturedProject = {
+  slug: FeaturedProjectSlug;
   name: string;
+  repoUrl: string;
+  status: "Live" | "Code";
+  theme: "ai" | "build" | "data";
   summary: string;
   problem: string;
   architecture: string;
@@ -17,69 +21,133 @@ export type Project = {
   highlights: readonly string[];
 };
 
-export const projects = [
-  {
-    slug: "go-torrent",
-    name: "go-torrent",
-    summary:
-      "A BitTorrent client in Go implementing peer wire, trackers, DHT, and metadata exchange.",
-    problem:
-      "Most examples stop at basic downloads and do not cover robust peer discovery, scheduling, and integrity handling.",
-    architecture:
-      "Protocol modules for tracker communication and peer wire feed a concurrent piece scheduler with verification and resume-safe writes.",
-    stack: ["Go", "BEP 3/5/9", "DHT", "HTTP/UDP Trackers", "React"],
-    highlights: [
-      "Implemented magnet-link metadata exchange and distributed peer discovery.",
-      "Built concurrent piece workers with retry, timeout, and choke/unchoke handling.",
-      "Added real-time dashboard visibility for peers and transfer state.",
-    ],
-  },
-  {
-    slug: "hyle",
-    name: "hyle",
-    summary:
-      "A stack-based VM and dynamic language in Rust with a custom compiler and garbage collector.",
-    problem:
-      "Language tooling tutorials often skip hard runtime concerns like closures, classes, and memory reclamation under cyclic references.",
-    architecture:
-      "A single-pass compiler emits bytecode executed by a VM runtime supporting lexical scopes, class inheritance, and method dispatch.",
-    stack: ["Rust", "Pratt Parser", "Bytecode VM", "Mark-and-Sweep GC"],
-    highlights: [
-      "Implemented a handwritten compiler from parser to bytecode emission.",
-      "Added closures, lexical environments, and class/object model semantics.",
-      "Designed a mark-and-sweep collector to handle cyclic object graphs.",
-    ],
-  },
-  {
-    slug: "rust_os",
-    name: "rust_os",
-    summary:
-      "A 64-bit Rust micro-kernel exploring interrupts, memory management, and no_std systems programming.",
-    problem:
-      "Kernel experimentation needs reliable low-level tooling for memory and fault handling without undefined-behavior traps.",
-    architecture:
-      "Boot sequence initializes GDT/IDT and paging; frame allocator and heap layers enable higher-level allocations in kernel space.",
-    stack: ["Rust", "x86_64", "no_std", "QEMU", "Paging"],
-    highlights: [
-      "Set up interrupt handling, PIC remapping, and double-fault recovery path.",
-      "Implemented 4-level paging plus frame and heap allocators.",
-      "Enabled kernel collections (`Box`, `Vec`, `String`) for richer subsystems.",
-    ],
-  },
+export const featuredProjects = [
   {
     slug: "wait-whaa-win",
     name: "wait-whaa-win",
+    repoUrl: "https://github.com/adityachauhan0/wait-whaa-win",
+    status: "Live",
+    theme: "ai",
     summary:
-      "An AI discovery engine using Graph-RAG to surface non-obvious connections in user knowledge.",
+      "Graph-RAG discovery engine that surfaces non-obvious connections from user knowledge.",
     problem:
-      "Pure vector search misses relationship-level context and weakly explains why an insight should be trusted.",
+      "Pure vector search misses relationship-level context and often fails to explain why an insight should be trusted.",
     architecture:
-      "Triplet extraction builds graph+vector memory in Neon Postgres with multi-stage retrieval, bridge hypotheses, and interactive graph rendering.",
-    stack: ["Next.js", "TypeScript", "Gemini", "Neon + pgvector", "Drizzle"],
+      "Triplet extraction builds graph+vector memory in Neon Postgres; multi-stage retrieval and bridge hypotheses drive interactive graph outputs.",
+    stack: ["Next.js", "TypeScript", "Gemini", "Neon + pgvector", "Drizzle", "Clerk"],
     highlights: [
-      "Combined graph and vector retrieval for better contextual recall.",
-      "Added bridge-hypothesis generation to connect distant knowledge nodes.",
-      "Rendered reasoning paths with interactive graph UX for explainability.",
+      "Combined graph and vector retrieval for contextual recall.",
+      "Implemented bridge-hypothesis generation for distant-node reasoning.",
+      "Rendered evidence paths with interactive graph UX.",
     ],
   },
-] as const satisfies readonly Project[];
+  {
+    slug: "gamer-cat",
+    name: "gamer-cat",
+    repoUrl: "https://github.com/adityachauhan0/gamer-cat",
+    status: "Code",
+    theme: "ai",
+    summary:
+      "Local-first multimodal gaming copilot with live screen understanding and voice interaction.",
+    problem:
+      "Most assistants depend on cloud pipelines and add latency/privacy risks for fast game-time feedback.",
+    architecture:
+      "A local loop combines screen capture, vision-language inference, and conversational voice IO for low-latency guidance.",
+    stack: ["Python", "Ollama", "Llama 3.2", "Moondream", "STT/TTS"],
+    highlights: [
+      "Built an offline-first multimodal interaction pipeline.",
+      "Integrated screen + voice context for in-session assistance.",
+      "Optimized for local inference and privacy-sensitive workflows.",
+    ],
+  },
+  {
+    slug: "slap-app",
+    name: "slap-app",
+    repoUrl: "https://github.com/adityachauhan0/slap-app",
+    status: "Live",
+    theme: "build",
+    summary:
+      "AI reality-check app with structured feedback and production guardrails.",
+    problem:
+      "Direct LLM advice flows are easy to abuse without authentication, rate control, and consistent response formatting.",
+    architecture:
+      "Next.js app with Clerk auth, Upstash rate limits, and a structured prompting layer that returns multi-part diagnostics.",
+    stack: ["Next.js", "TypeScript", "Gemini", "Clerk", "Upstash Redis", "Tailwind"],
+    highlights: [
+      "Implemented sliding-window rate limits for abuse control.",
+      "Shipped structured responses suitable for product UX.",
+      "Balanced AI output quality with operational safety controls.",
+    ],
+  },
+  {
+    slug: "research-waifu",
+    name: "research-waifu",
+    repoUrl: "https://github.com/adityachauhan0/research-waifu",
+    status: "Code",
+    theme: "data",
+    summary:
+      "Agentic RAG research system with planning, critique, and grounded report synthesis.",
+    problem:
+      "Single-pass retrieval and generation pipelines struggle to maintain depth and factual grounding on open-ended research.",
+    architecture:
+      "Planner-worker-evaluator-compiler graph orchestrates web/PDF retrieval, embedding search, revision loops, and final synthesis.",
+    stack: ["Python", "LangGraph", "LangChain", "Ollama", "ChromaDB", "DuckDuckGo Search"],
+    highlights: [
+      "Added self-correction loops before final report generation.",
+      "Combined web and document retrieval for better source coverage.",
+      "Separated planning and evaluation roles to improve answer quality.",
+    ],
+  },
+  {
+    slug: "are-you-okay",
+    name: "are-you-okay",
+    repoUrl: "https://github.com/adityachauhan0/are-you-okay",
+    status: "Live",
+    theme: "ai",
+    summary:
+      "Real-time gesture-controlled browser synth powered by on-device hand tracking.",
+    problem:
+      "Interactive ML demos often fail due to high-latency inference and weak mapping between vision signals and user control.",
+    architecture:
+      "Client-side hand landmark inference drives audio synthesis zones and interaction states for immediate feedback.",
+    stack: ["Next.js", "TypeScript", "MediaPipe", "Tone.js", "Framer Motion"],
+    highlights: [
+      "Designed low-latency gesture-to-audio control mapping.",
+      "Implemented browser-native real-time inference loop.",
+      "Shipped playful UX while preserving technical depth.",
+    ],
+  },
+] as const satisfies readonly FeaturedProject[];
+
+export type SystemsDeepDive = {
+  name: string;
+  summary: string;
+  stack: readonly string[];
+};
+
+export const systemsDeepDives = [
+  {
+    name: "go-torrent",
+    summary:
+      "Built a protocol-level BitTorrent client in Go with tracker, DHT, and peer-wire internals.",
+    stack: ["Go", "BEP 3/5/9", "Networking"],
+  },
+  {
+    name: "hyle",
+    summary:
+      "Implemented a stack-based VM and language runtime with compiler and mark-and-sweep GC.",
+    stack: ["Rust", "Compiler", "Runtime"],
+  },
+  {
+    name: "rust_os",
+    summary:
+      "Developed a no_std x86_64 micro-kernel with paging, interrupt handling, and allocator subsystems.",
+    stack: ["Rust", "x86_64", "Kernel"],
+  },
+] as const satisfies readonly SystemsDeepDive[];
+
+export const profileHighlights = [
+  { label: "Public repos", value: "63+" },
+  { label: "Featured AI projects", value: "5" },
+  { label: "Systems deep dives", value: "3" },
+] as const;

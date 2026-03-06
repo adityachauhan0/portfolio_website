@@ -1,10 +1,10 @@
-import { projects, type Project } from "@/content/projects";
+import { featuredProjects, type FeaturedProject } from "@/content/projects";
 
 type ProjectGridProps = {
-  items?: readonly Project[];
+  items?: readonly FeaturedProject[];
 };
 
-export function ProjectGrid({ items = projects }: ProjectGridProps) {
+export function ProjectGrid({ items = featuredProjects }: ProjectGridProps) {
   return (
     <section className="project-grid" aria-label="Project case studies">
       <ul className="project-grid__list">
@@ -12,7 +12,17 @@ export function ProjectGrid({ items = projects }: ProjectGridProps) {
           <li key={project.slug} className="project-grid__item">
             <article className="project-card">
               <header className="project-card__header">
-                <h3 className="project-card__title">{project.name}</h3>
+                <div className="project-card__meta">
+                  <span className={`badge badge--theme-${project.theme}`}>
+                    {project.theme}
+                  </span>
+                  <span className="badge">{project.status}</span>
+                </div>
+                <h3 className="project-card__title">
+                  <a href={project.repoUrl} target="_blank" rel="noreferrer">
+                    {project.name}
+                  </a>
+                </h3>
                 <p className="project-card__summary">{project.summary}</p>
               </header>
 
@@ -30,7 +40,7 @@ export function ProjectGrid({ items = projects }: ProjectGridProps) {
                 <p className="project-card__label">Stack</p>
                 <div className="project-card__badges">
                   {project.stack.map((item) => (
-                    <span key={item} className="badge badge--build">
+                    <span key={item} className="badge">
                       {item}
                     </span>
                   ))}
