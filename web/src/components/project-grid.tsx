@@ -43,18 +43,21 @@ export function ProjectGrid({
                       </span>
                     </div>
                   ) : null}
-                <div className="project-card__meta">
-                  <span className={`badge badge--theme-${project.theme}`}>
-                    {project.theme}
-                  </span>
-                  <span className="badge">{project.status}</span>
-                </div>
-                <h3 className="project-card__title">
-                  <a href={project.repoUrl} target="_blank" rel="noreferrer">
-                    {project.name}
-                  </a>
-                </h3>
-                <p className="project-card__summary">{project.summary}</p>
+
+                  <div className="project-card__meta">
+                    <span className={`badge badge--theme-${project.theme}`}>
+                      {project.theme}
+                    </span>
+                    <span className="badge">{project.status}</span>
+                  </div>
+
+                  <h3 className="project-card__title">
+                    <a href={project.repoUrl} target="_blank" rel="noreferrer">
+                      {project.name}
+                    </a>
+                  </h3>
+
+                  <p className="project-card__summary">{project.summary}</p>
                 </header>
 
                 <div className="project-card__block">

@@ -35,7 +35,7 @@ export default async function Home() {
 
       <section className="section" id="home">
         <div className="hero">
-          <div>
+          <div className="hero__content">
             <span className="eyebrow">Fullstack Developer + AI Engineer</span>
             <h1 className="hero-title">AI product engineer with systems roots.</h1>
             <p className="hero-subtitle">
@@ -60,7 +60,7 @@ export default async function Home() {
             </ul>
           </div>
 
-          <div>
+          <div className="hero__aside">
             <div className="hero-tags">
               <span className="badge badge--build">Systems + Backend</span>
               <span className="badge badge--ai">Applied AI</span>
@@ -96,7 +96,7 @@ export default async function Home() {
 
       <section className="section" id="projects">
         <span className="eyebrow">Featured AI Work</span>
-        <div className="panel">
+        <div className="panel panel--projects">
           <h2 className="panel-title">AI Products with Real Engineering Constraints</h2>
           <p className="panel-copy">
             These projects demonstrate applied AI systems across retrieval,
@@ -110,7 +110,7 @@ export default async function Home() {
 
       <section className="section" id="github">
         <span className="eyebrow">GitHub Pulse</span>
-        <div className="panel">
+        <div className="panel panel--github">
           <h2 className="panel-title">Pinned and Live Repo Activity</h2>
           <p className="panel-copy">
             Live GitHub data is cached for one hour to keep page loads fast and
