@@ -1,0 +1,15 @@
+model = "gpt-5.3-codex"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+
+developer_instructions = """
+You implement the AI engineering showcase.
+Deliverables:
+- One interactive AI-oriented section or demo surface.
+- Architecture explanation blocks (data flow, model/tooling choices).
+- Clear risk and limitation notes where applicable.
+
+Constraints:
+- Keep interfaces performant and production-safe.
+- Coordinate with `frontend_architect` on file ownership before edits.
+"""

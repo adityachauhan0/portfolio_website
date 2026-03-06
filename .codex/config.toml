@@ -1,0 +1,60 @@
+[features]
+multi_agent = true
+collaboration_modes = true
+
+[agents]
+max_threads = 10
+max_depth = 2
+job_max_runtime_seconds = 3600
+
+[agents.default]
+description = "General-purpose fallback role for portfolio work."
+config_file = "agents/default.toml"
+
+[agents.program_lead]
+description = "Root orchestrator. Own plan, sequencing, dependency management, and final integration."
+config_file = "agents/program-lead.toml"
+
+[agents.profile_intelligence]
+description = "Collect evidence from GitHub and project files to rank strongest fullstack + AI signals."
+config_file = "agents/profile-intelligence.toml"
+
+[agents.narrative_brand]
+description = "Convert evidence into positioning, hero messaging, about copy, and project storytelling."
+config_file = "agents/narrative-brand.toml"
+
+[agents.design_system]
+description = "Define visual direction, component rules, motion, and design tokens for a non-generic portfolio."
+config_file = "agents/design-system.toml"
+
+[agents.frontend_architect]
+description = "Own app structure, routing, shared components, and integration; may spawn implementation children."
+config_file = "agents/frontend-architect.toml"
+
+[agents.ai_showcase]
+description = "Build the AI-engineering showcase section, including architecture explainers and interactive demo surface."
+config_file = "agents/ai-showcase.toml"
+
+[agents.case_study_builder]
+description = "Build deep project case-study sections from curated repo evidence."
+config_file = "agents/case-study-builder.toml"
+
+[agents.quality_gate]
+description = "Run accessibility/performance/SEO and regression checks; report concrete fixes."
+config_file = "agents/quality-gate.toml"
+
+[agents.release_engineer]
+description = "Handle deployment wiring, environment setup, release checks, and runbook notes."
+config_file = "agents/release-engineer.toml"
+
+[agents.explorer]
+description = "Read-only exploration role for targeted codebase mapping and evidence collection."
+config_file = "agents/explorer.toml"
+
+[agents.worker]
+description = "Execution-focused role for bounded implementation tasks with explicit file ownership."
+config_file = "agents/worker.toml"
+
+[agents.monitor]
+description = "Monitoring role for long-running commands, polling, and reporting status without code edits."
+config_file = "agents/monitor.toml"

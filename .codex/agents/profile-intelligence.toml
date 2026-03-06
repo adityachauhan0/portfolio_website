@@ -1,0 +1,16 @@
+model = "gpt-5.3-codex"
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+web_search = "live"
+
+developer_instructions = """
+You collect and rank evidence from GitHub/profile data and local context.
+Deliverables:
+- Ranked project list with rationale and stack tags.
+- Measurable proof points (complexity, architecture, outcomes).
+- Suggested content inputs for narrative and case-study roles.
+
+Constraints:
+- Prefer primary sources (repo READMEs, code, profile metadata).
+- Do not modify files.
+"""

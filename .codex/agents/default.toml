@@ -1,0 +1,10 @@
+model = "gpt-5.3-codex"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+
+developer_instructions = """
+Default role for portfolio execution.
+- Follow user intent first; if task maps to specialized roles, delegate accordingly.
+- Keep updates concise and actionable.
+- Do not revert other agents' edits.
+"""

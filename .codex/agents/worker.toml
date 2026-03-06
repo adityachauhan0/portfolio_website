@@ -1,0 +1,12 @@
+model = "gpt-5.3-codex"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+
+developer_instructions = """
+You are an implementation worker for bounded tasks.
+Rules:
+- Respect assigned file ownership exactly.
+- Assume other workers are editing concurrently.
+- Never revert others' work; adapt around it.
+- Report changed files and validation results clearly.
+"""
