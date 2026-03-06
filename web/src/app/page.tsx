@@ -1,14 +1,32 @@
 import AiShowcase from "@/components/ai-showcase";
 import { ProjectGrid } from "@/components/project-grid";
-import { profileHighlights, systemsDeepDives } from "@/content/projects";
+import { systemsDeepDives } from "@/content/projects";
+import { getGitHubSnapshot } from "@/lib/github";
 
-export default function Home() {
+function formatDate(isoDate: string): string {
+  const date = new Date(isoDate);
+  if (Number.isNaN(date.getTime())) {
+    return "Unknown";
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+}
+
+export default async function Home() {
+  const snapshot = await getGitHubSnapshot();
+  const fetchedAt = formatDate(snapshot.fetchedAt);
+
   return (
     <main className="site-shell">
       <nav className="top-nav" aria-label="Primary">
         <div className="nav-brand">Aditya Chauhan</div>
         <div className="nav-links">
           <a href="#projects">Projects</a>
+          <a href="#github">GitHub</a>
           <a href="#systems">Systems</a>
           <a href="#ai">AI</a>
           <a href="#contact">Contact</a>
@@ -51,7 +69,7 @@ export default function Home() {
             </div>
 
             <div className="metrics-grid" aria-label="Portfolio metrics">
-              {profileHighlights.map((item) => (
+              {snapshot.metrics.map((item) => (
                 <article className="metric-card" key={item.label}>
                   <p className="metric-card__value">{item.value}</p>
                   <p className="metric-card__label">{item.label}</p>
@@ -62,7 +80,7 @@ export default function Home() {
             <div className="hero-actions">
               <a
                 className="action-link action-link--primary"
-                href="https://github.com/adityachauhan0"
+                href={snapshot.profile.profileUrl}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -85,8 +103,44 @@ export default function Home() {
             guardrails, multimodal interfaces, and product-grade UX.
           </p>
           <div className="section-stack-gap">
-            <ProjectGrid />
+            <ProjectGrid liveRepoStats={snapshot.repoStats} />
           </div>
+        </div>
+      </section>
+
+      <section className="section" id="github">
+        <span className="eyebrow">GitHub Pulse</span>
+        <div className="panel">
+          <h2 className="panel-title">Pinned and Live Repo Activity</h2>
+          <p className="panel-copy">
+            Live GitHub data is cached for one hour to keep page loads fast and
+            API usage predictable.
+          </p>
+          <p className="mono-line">Latest snapshot: {fetchedAt}</p>
+
+          <ul className="pinned-grid section-stack-gap">
+            {snapshot.pinned.map((repo) => (
+              <li key={repo.name} className="pinned-grid__item">
+                <article className="pinned-card">
+                  <h3 className="pinned-card__title">
+                    <a href={repo.url} target="_blank" rel="noreferrer">
+                      {repo.name}
+                    </a>
+                  </h3>
+                  <p className="pinned-card__copy">
+                    {repo.description ?? "No repository description available."}
+                  </p>
+                  <div className="hero-tags pinned-card__meta">
+                    <span className="badge badge--theme-data">
+                      Stars: {repo.stars.toLocaleString("en-US")}
+                    </span>
+                    <span className="badge">Updated: {formatDate(repo.updatedAt)}</span>
+                    {repo.language ? <span className="badge">{repo.language}</span> : null}
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -139,11 +193,11 @@ export default function Home() {
           <div className="hero-actions panel-copy--spaced">
             <a
               className="action-link action-link--primary"
-              href="https://github.com/adityachauhan0"
+              href={snapshot.profile.profileUrl}
               target="_blank"
               rel="noreferrer"
             >
-              github.com/adityachauhan0
+              github.com/{snapshot.profile.username}
             </a>
             <a className="action-link" href="mailto:adityac.1406@gmail.com">
               adityac.1406@gmail.com
